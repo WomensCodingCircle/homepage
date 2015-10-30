@@ -1,0 +1,314 @@
+<!-- 
+HangFly modified from Charlotte Weaver's orginal Hangwoman codes 20151029
+ -->
+
+<html>
+<head>
+
+<title>HangFly-JRC version</title>
+
+<!--  <STYLE TYPE="text/css"> -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<style>
+
+body {
+    color: red;
+    background-color: #FFF0D1; 
+    font-size: 20px;     
+    background-image: url('2015_GRpics/fly-bkg.jpg');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.dissections {
+    color: #0066FF;
+    font-size: 40px;
+}
+
+.thanks {
+    color: #FF3300;
+    font-size: 40px;
+    font-weight: bold;
+}
+.work {
+    color: #000F00;
+    font-size: 40px;
+    font-weight: bold;
+}
+    
+.letters_sofar {
+    color: #0066FF
+}
+
+/*  html css below from http://css-tricks.com/perfect-full-page-background-image/ */
+
+/* 
+html {
+    color: red;
+    background-color: antiquewhite;
+    background-image: url(file:///Users/ngot/Desktop/2015_flyparts/flytrap.jpg);
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+ */
+
+
+/* 
+h1 {
+	width: 98%;
+	background:bisque;
+	color: red;
+	padding: 15px;
+	margin: 0px;
+	border: 1px solid white;
+	border-radius: 7px;
+}
+ */
+
+h1 {color: red; font-size: 45px}
+h3 {color: brown; font-size: 25px}
+hr {color: white}
+
+a {
+    color: #0066FF;
+    font-size: 14px;
+}
+p.ex {
+    color: rgb(0,0,255);
+}
+
+.off {
+    left: -9999;
+    top: -9999;
+    display:none;
+}
+
+</style>
+
+</head>
+<body>
+<h1 id='title'>Let's play hangman-FLY style.</h1>
+<h3 id='title'>use space bar to make a space between two words</h3>
+
+<!--<img src="flytrap.jpg" alt="vial" style="width:300px;height:160px;"/>  -->
+<!--document.body.style.backgroundImage = "url("flytrap.jpg")";> -->
+<br>
+<br>
+<p><div id='gallows'></div></p>
+<p id='word'></p>
+<p id='result'></p>
+<p id='guesses_sofar'></p>
+<p id='quit_msg'></p>
+
+<br>
+<br>
+
+<!-- <form> -->
+<button id='play_again' value = 'Play Again' style="font-weight: bold; font-size: 16px ;color:red; width:100; height:30; border-radius: 60px; border: 1px solid #000;">Play Again</button>
+<button id='quit' value = 'Quit' style="font-weight: bold; font-size: 16px; color:red; width:100; height:30; border-radius: 60px; border: 1px solid #000;">Quit</button>
+ 
+<!-- </form> -->
+<br>
+<br>
+<br>
+
+
+<a href="http://www.wiedemannillustrations.com/drosophila.html#">Drosophilia's image: wiedemannillustrations.com </a>
+<!-- <a href="http://puredefensepestsolutions.net/wp-content/uploads/2013/10/fruit-fly-pure-defense-pest1.jpg">background image source</a> -->
+<br>
+<a href="http://file.answcdn.com/answ-cld/image/upload/w_1200,h_630,g_faces,c_fill,q_100,f_jpg/v1/tk/view/getty/Animal_Life/f13e3fa6/164852420.jpg">flytrap image source</a>
+
+<img src='2015_GRpics/0_peach.jpg' class='off'>
+<img src='2015_GRpics/1_GR-head.jpg' class='off'>
+<img src='2015_GRpics/2_GR-body.jpg' class='off'>
+<img src='2015_GRpics/3_GR-body_rarm.jpg' class='off'>
+<img src='2015_GRpics/4_GR-body_1hand.jpg' class='off'>
+<img src='2015_GRpics/5_GR-body_2hand.jpg' class='off'>
+<img src='2015_GRpics/6_GR-body_1leg.jpg' class='off'>
+<img src='2015_GRpics/7_GR-whole.jpg' class='off'>
+
+<br>
+<br>
+
+<script type='text/javascript'>
+
+
+// First you will create two functions to help with playing hangman
+// The first function will be named guessedLetter and will take a letter 'l' and an 
+// array of guessed letters 'guessed' as parameters
+// loop through guessed, if l equals that letter return 1 ** hint use the lowercase versions of both
+// after the loop return 0 ** this will only happen if the letter doesn't match guessed
+
+function guessedLetter(l, guessed) {
+    l_lc = l.toLowerCase();
+    for (var i = 0; i < guessed.length; i++) {
+        console.log(i);
+        console.log(guessed[i]);
+        if (guessed[i].toLowerCase() == l_lc) {
+            return 1; 
+        }
+    }  
+        return 0;  
+}
+
+// The second function will be called letterInWord and will take a letter 'l' and a word 'word' as parameters
+// First split the word into characters and store in a variable called split_word
+// Loop through each character in split_word. If l equals that letter return true. ** hint again, use the lowercase 
+// version of both letters
+// after the loop return false
+
+function letterInWord(l, word) {
+    l_lc = l.toLowerCase();
+    var split_word = word.split('')        // split each letter in 'word' into characters
+    console.log(split_word);
+    for (var c = 0; c < word.length; c++) {
+        if (split_word[c].toLowerCase() == l_lc) {
+            return true;
+        }
+    }
+    return false;
+}
+
+function endOfGame(){
+  //  $('#quit_msg').html('Thanks for playing. Now, GET BACK to WORK!');
+    $('#word').html("");
+    $('#result').html("");
+    $('#guesses_sofar').html("");
+  //  $('#quit_msg').html("<span class='thanks'>Thanks for playing. Now, GET BACK to WORK!</span>");
+    $('#quit_msg').html("<span class='thanks'>Thanks for playing. <span class='work'>Now, GET BACK to WORK!</span>");
+}
+
+function game_start(){
+    
+    $('#result').html("");       // this is set result and guesses_sofar messages to null
+    $('#guesses_sofar').html("");
+    $('#quit_msg').html("");
+    
+    var guessed_letters = [];       // array of guessed letters
+    var num_wrong_guess = 0;       // Create a variable called num_wrong_guess that is equal to 0
+
+    // Create a variable called word_choice with a random choice from the word_bank array *hint: use Math.random()
+    var random_index = Math.floor(Math.random()*word_bank.length);
+    var word_choice = word_bank[random_index];   //w help from StackOverflow
+
+    var result = "Sorry, you LOSE!";   // Create a variable called result with value of "Sorry, you lose!"
+
+    // Start a while loop where the condition is that num_wrong_guesses is less than length of woman array
+    while ((num_wrong_guess) < woman.length-1) {
+
+        // Lay out the gallows:
+        //  fill the html for the element with id of gallows with the element from the woman array with the index of num_wrong_guess
+        $('#gallows').html("<img src='" + woman[num_wrong_guess] + "'>");     //use Jquery
+        // document.getElementById('gallows').innerHTML = woman[num_wrong_guess];
+        
+        // Figure out what the word to be printed on the screen (including blanks). At the same time we will
+        // calculate if the user has guessed all the letters in the word
+
+        var split_word = word_choice.split('');   //   split the word into characters and store 
+        var word_to_print = '';      // create a variable called word_to_print which contains an empty string
+        var num_correct_letters = 0;  // create a variable called num_correct_letters equal to 0 
+
+
+        //   for each letter in split_word
+        //   use the guessedLetter function you wrote to check if that letter is in the guessed_letters array
+        //   if it is add that letter to word_to_print string and add 1 to num_correct letters
+        //   else if the letter is a space add that letter to word_to_print string and add 1 to num_correct letters
+        //   otherwise add an underscore to word_to_print (this counts as a blank) ** you may want to add a space after
+        //   your letters/underscores to make it more stylish
+
+        for (var j = 0; j < split_word.length; j++) {
+            if (guessedLetter(split_word[j], guessed_letters) == 1) {
+                word_to_print += split_word[j];
+                num_correct_letters += 1; 
+            }
+            else if (split_word[j] == '') {
+                word_to_print += split_word[j];
+                num_correct_letters += 1;
+            }
+            else {
+                word_to_print += "_ ";
+            }
+        }
+
+        // Fill in the html for the element with id of word with the value of word_to_print
+       // document.getElementById('word').innerHTML = word_to_print;
+        $('#word').html(word_to_print);  
+    
+        // If they got the word correct (word_choice's length is equal to num_correct_letters)
+        //   set result to be "Yay you guessed it!"
+        //   break out of the while loop, they are done
+
+        if (word_choice.length == num_correct_letters) {
+            if (random_index < 4) {
+                result = "Right On! You know your anatomy. <span class='dissections'>Free dissections!</span>"}
+            else {
+                result = "Yay! You Guessed it!"; 
+            }
+            console.log( "Yay! You Guessed it!");
+            break;
+        }
+
+        // Finally, we prompt the user for a letter and store it in a variable called guess
+        var guess = prompt("Please Enter a Letter or Number");
+       // document.getElementById('guesses_sofar').innerHTML = guess;
+    
+        // Use the function letterInWord to check if their guess is in word_choice.
+        if (! letterInWord(guess, word_choice)) {    // If not, add 1 to num_wrong_guess
+            num_wrong_guess += 1;
+        }
+        
+        guessed_letters.push(guess);        // Add their guess to guessed_letters array
+      //  document.write('guessed letters so far: ' + guessed_letters);
+     //   $('#guesses_sofar').html(<p class="ex">'guessed letters so far:  '</p> + guessed_letters + '  ');
+    //  $('#guesses_sofar').html('guessed letters so far:  ' + guessed_letters + '  ');
+        
+        $('#guesses_sofar').html("<span class='letters_sofar'> guessed letters so far: </span>"  + guessed_letters);
+        var guess_str = guessed_letters.join(' ');
+        //document.write("<br>");
+    
+      //  document.getElementById('guesses_sofar').innerHTML = guessed_letters;
+        console.log("guessed letter:", guessed_letters);
+    
+    }         // Close your while loop
+    
+    //add final image here as number of guesses maxed out
+    $('#gallows').html("<img src='2015_GRpics/7_GR-whole.jpg'>");   
+     
+    // Now they are done playing and either won or lost, either way fill in the html of the elemement with the id
+    // of word with the word_choice
+    // Fill in the html of the element with id of result with result.
+
+    //document.getElementById('word').innerHTML = word_choice;
+    $('#word').html('word is: ' + word_choice);
+    //document.getElementById('result').innerHTML = result;  
+    $('#result').html(result);
+
+}
+
+
+var word_bank = ['mushroom body','medulla','fan shape body','lateral horn','fruit fly', 'CurlyO', 'Tubby', 'Stubble','GFP', 'brain',
+        'GRASP', 'GAL4 and LexA', 'Chrimson', 'GCAMP6'];
+
+// Create an array called woman that contains an text representation of the woman at every stage of hangwoman
+
+var woman = ["2015_GRpics/0_peach.jpg", "2015_GRpics/1_GR-head.jpg", 
+        "2015_GRpics/2_GR-body.jpg", "2015_GRpics/3_GR-body_rarm.jpg", 
+        "2015_GRpics/4_GR-body_1hand.jpg", "2015_GRpics/5_GR-body_2hand.jpg", 
+        "2015_GRpics/6_GR-body_1leg.jpg", "2015_GRpics/7_GR-whole.jpg"];
+       
+$(window).load( function(){
+    game_start();
+   
+    $('#play_again').click(game_start);
+    $('#quit').click(endOfGame);
+
+});
+
+</script>
+</body>
+</html>
+

@@ -1,0 +1,116 @@
+<html>
+<head>
+<title>TV Genie</title>
+<link href='https://fonts.googleapis.com/css?family=Nosifer' rel='stylesheet' type='text/css'>
+  <link href="../assets/css/bootstrap.css" rel="stylesheet">
+    <link href="../assets/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../assets/css/style.css" rel="stylesheet">
+</head>
+<body class='genie-body'>
+<div class='container'>
+<div class='row'>
+<h1 class='genie-title' id='title'>Let TV Genie recommend a show for you to watch!</h1>
+<label for='genre'>Select your favorite genre</label>
+<!-- ** The quote sign needed to be after the close parnethesis -->
+<select id='genre' name='genre' onchange='userSelect(this.value)'>
+	<option value='selected'>--select--</option>
+	<option value='comedy'>Comedy</option>
+	<option value='crime'>Crime</option>
+	<option value='drama'>Drama</option>
+	<option value='international'>International</option>
+	<option value='kids'>Kids</option>
+	<option value='reality'>Reality TV</option>
+	<option value='none'>I don't like TV</option>
+	</select>
+<br><br>
+<p id='genie'></p>
+</div>
+</div>
+<!-- ** since you are using jquery in the rand function, you need to make sure that you are including jquery on the page -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+<script type='text/javascript'>
+var comedyArray= ['The Big Bang Theory', 'Community', 'Fresh Off The Boat', 'Modern Family', 'New Girl', 'Saturday Night Live', 'Brooklyn Nine-Nine', 'Family Guy', 'The Simpsons', "Bob's Burgers", '2 Broke Girls', 'Dr. Ken', 'Girls' ];
+var crimeArray= ['NCIS', 'Law & Order:SVU', 'Dateline', 'CSI', 'Sherlock', 'True Deterctive', 'Turn on Investigation Discovery and never change the channel', 'Most Lifetime Movies'];
+var dramaArray= ['The Good Wife','The Americans', 'Downton Abbey', 'Scandal', "Grey's Anatomy", 'Orange is the New Black', 'Homeland', 'Game of Thrones', 'The Walking Dead', 'Fargo', 'The Affair'];
+var internationalArray= ['Borgen', 'Boys Over Flowers', 'The Straits', 'Wallander', 'The Missing', 'The Bridge', 'The Slap', 'Broadchurch', 'Orphan Black' ];
+var kidsArray= ['Sesame Street', 'Reading Rainbow', 'My Little Pony', 'Adventure Time', 'Thomas & Friends', 'Peppa Pig'];
+var realityArray= ['The Amazing Race', 'The Great British Bake Off', 'Chopped', 'Project Runway', 'Survivor', 'So You Think You Can Dance', 'The Voice', 'House Hunters', 'Love It or List It', 'Fixer Upper', 'American Ninja Warrior'];
+var none='You need to watch The Golden Girls.  That is all.';
+ (function($){
+	$.rand=function(arg){
+		if($.isArray(arg)){
+			return arg[$.rand(arg.length)];
+		} 
+		else if(typeof arg === "number"){
+			return Math.floor(Math.random() * arg);
+		} 
+	};
+})(jQuery);
+
+function pickShow(genre){
+	var show = '';
+	if (genre == 'comedy') {
+		show = $.rand(comedyArray);
+	}
+	else if(genre == 'crime') {
+		show = $.rand(crimeArray)
+	}
+	else if(genre == 'drama') {
+		show = $.rand(dramaArray)
+	}
+	else if(genre == 'international') {
+		show = $.rand(internationalArray)
+	}
+	else if(genre == 'kids') {
+		show = $.rand(kidsArray)
+	}
+	else if(genre == 'reality') {
+		show = $.rand(realityArray)
+	}
+	else {
+		show = none
+	}
+	//document.write=('TV Genie Recommends <span class="show">' + show + "</span>") ;
+	return show;
+}
+
+var genie = document.getElementById('genie');
+// ** Num should be outside of the function, so that it doesn't reset when you call the function
+var num = 0;
+// ** You don't need quotes for a variable to a function
+function userSelect(genre){
+ 	// ** You are already passing the genre to the function from the select element's onclick function (this.value is the genre), no need to redefine the variable
+ 	// var genre = this.value;
+ 	var suggestion = pickShow(genre);
+ 	// ** document.write('<p>' + 'TV Genie Recommends ' + suggestion + '</p>')
+ 	// ** it is better to put it in the genie element so that you don't overwrite all your other elements
+ 	// ** make sure you define genie to be the element with the id of genie, you can use document.getElementById or jquery's method
+ 	//document.write='(TV Genie Recommends ' + suggestion) ;
+ 	genie.innerHTML = 'TV Genie Recommends: <span class="show">' + suggestion + "</span>";
+ 	// ** var num = 0
+ 	// ** while (num < 2) {
+ 	// ** }
+ 	var approve= confirm('Do you like my suggestion?');
+ 	if (! approve) {
+ 		// ** Make sure you are setting num to the new value
+ 		num = num + 1;
+ 		console.log(num);
+ 		// ** Add in brackets and semicolons, one liners can work without it, but it can get really messy
+ 		if (num > 2){
+ 			genie.innerHTML = '<p>' + 'You need to watch some Golden Girls!' + '</p>';
+ 			num = 0;
+ 		}
+ 		else {
+ 			// ** to call userSelect again, you don't have to redefine the function, you just call it like you would outside the function
+ 			userSelect(genre);
+ 		}
+ 		
+ 	}
+ 	// print suggestion to screen
+ 	// ask if user likes suggestion
+ 	// if not call userSelect again
+}
+</script>
+</body>
+</html

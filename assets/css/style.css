@@ -254,3 +254,70 @@ h1, h2, h3, h4, h5, h6 {
 	color: white;
 	font-size: 40px;
 }
+.tile {
+	height: 80px;
+	color: #1abc9c;
+	border-radius: 7px;
+	background: #fff;;
+	font-size: 1.5em;
+	vertical-align:center;
+	font-weight: bold;
+	border: #1abc9c 3px solid;
+}
+div.textleft {
+	text-align: left;
+}
+div.arcade div {
+	margin-top: 10px;
+}
+#mash {
+	text-align:center;
+	width: 100%;
+	padding-bottom: 50px;
+}
+.verdict {
+	text-align:center;
+	width: 100%;
+}
+.mashbody {
+	background: rgba(230,229,209,1);
+	background: -moz-linear-gradient(top, rgba(230,229,209,1) 0%, rgba(230,229,209,1) 16%, rgba(196,53,51,1) 61%, rgba(135,8,8,1) 86%, rgba(135,8,8,1) 100%);
+	background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(230,229,209,1)), color-stop(16%, rgba(230,229,209,1)), color-stop(61%, rgba(196,53,51,1)), color-stop(86%, rgba(135,8,8,1)), color-stop(100%, rgba(135,8,8,1)));
+	background: -webkit-linear-gradient(top, rgba(230,229,209,1) 0%, rgba(230,229,209,1) 16%, rgba(196,53,51,1) 61%, rgba(135,8,8,1) 86%, rgba(135,8,8,1) 100%);
+	background: -o-linear-gradient(top, rgba(230,229,209,1) 0%, rgba(230,229,209,1) 16%, rgba(196,53,51,1) 61%, rgba(135,8,8,1) 86%, rgba(135,8,8,1) 100%);
+	background: -ms-linear-gradient(top, rgba(230,229,209,1) 0%, rgba(230,229,209,1) 16%, rgba(196,53,51,1) 61%, rgba(135,8,8,1) 86%, rgba(135,8,8,1) 100%);
+	background: linear-gradient(to bottom, rgba(230,229,209,1) 0%, rgba(230,229,209,1) 16%, rgba(196,53,51,1) 61%, rgba(135,8,8,1) 86%, rgba(135,8,8,1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e6e5d1', endColorstr='#870808', GradientType=0 );
+}
+.mashbody h1 {
+	font-family: 'Nosifer', cursive;
+}
+.mashbody div.row {
+	background: rgba(230,229,209,0.8);
+}
+.logo {
+	height: 50px;
+	width: 50px;
+	margin-right:5px;
+}
+.show {
+	font-weight: bold;
+	color: indigo;
+}
+.genie-title {
+	margin-bottom: 50px;
+	border-radius: 5px;
+}
+
+.genie-body{
+	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#fff4d8+46,d0bcdd+100 */
+background: #fff4d8; /* Old browsers */
+background: -moz-linear-gradient(top,  #fff4d8 46%, #d0bcdd 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(46%,#fff4d8), color-stop(100%,#d0bcdd)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #fff4d8 46%,#d0bcdd 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #fff4d8 46%,#d0bcdd 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #fff4d8 46%,#d0bcdd 100%); /* IE10+ */
+background: linear-gradient(to bottom,  #fff4d8 46%,#d0bcdd 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fff4d8', endColorstr='#d0bcdd',GradientType=0 ); /* IE6-9 */
+
+}
