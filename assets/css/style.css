@@ -105,6 +105,8 @@ h1, h2, h3, h4, h5, h6 {
 	width: 100%;
 	padding-top: 50px;
 	padding-bottom: 50px;
+    border-top: #1abc9c 10px solid;
+    border-bottom: #1abc9c 10px solid;
 }
 
 
@@ -267,9 +269,6 @@ h1, h2, h3, h4, h5, h6 {
 div.textleft {
 	text-align: left;
 }
-div.arcade div {
-	margin-top: 10px;
-}
 #mash {
 	text-align:center;
 	width: 100%;
@@ -297,7 +296,7 @@ div.arcade div {
 }
 .logo {
 	height: 50px;
-	width: 50px;
+	/*width: 50px;*/
 	margin-right:5px;
 }
 .show {
@@ -338,4 +337,38 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fff4d8', end
     left: 0;
     width: 100%;
     height: 100%;
+}
+
+.panel-arcade {
+	height: 150px;
+}
+
+.panel-success > .panel-heading {
+    color: #1abc9c;
+    background-color: #d9f2ed;
+    border-color: #1abc9c;
+}
+
+.panel-success {
+    border-color: #1abc9c;
+}
+
+h1  {
+    color: #1abc9c;
+    text-shadow: 1px 1px #2f2f2f;
+    font-size: 200%;
+}
+h2  {
+    color: #1abc9c;
+    font-size: 150%;
+}
+h3  {
+    color: #1abc9c;
+    font-size: 125%;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #009b90;
+    border-color: #00998c;
 }
